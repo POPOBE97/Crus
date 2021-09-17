@@ -1,15 +1,18 @@
 <template>
   <v-system-bar>
-    <p>Ruiyao</p>
+    <Label hierachy="paragraph">Ruiyao</Label>
     <v-spacer> </v-spacer>
-    <p>{{ dateString }}</p>
+    <Label hierachy="paragraph">{{ dateString }}</Label>
   </v-system-bar>
 </template>
 
 <script>
+  import Label from './Label'
   const formatDate = require('../../helper/FormatDate.js')
-
+  
   export default {
+    name: 'status-bar',
+    components: { Label },
     data () {
       return {
         date: new Date()

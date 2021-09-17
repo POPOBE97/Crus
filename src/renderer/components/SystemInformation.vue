@@ -1,37 +1,38 @@
 <template>
   <div>
-    <div class="title">Information</div>
-    <div class="items">
-      <div class="item">
-        <div class="name">Path:</div>
-        <div class="value">{{ path }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Route Name:</div>
-        <div class="value">{{ name }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Vue.js:</div>
-        <div class="value">{{ vue }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Electron:</div>
-        <div class="value">{{ electron }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Node:</div>
-        <div class="value">{{ node }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Platform:</div>
-        <div class="value">{{ platform }}</div>
-      </div>
+    <Label hierachy="subtitle">Information</Label>
+    <div style="padding-top: 8px;">
+        <Label hierachy="heading3">Path:</Label>
+        <Label hierachy="paragraph">{{ path }}</Label>
+    </div>
+    <div style="padding-top: 8px;">
+        <Label hierachy="heading3">Route Name:</Label>
+        <Label hierachy="paragraph">{{ name }}</Label>
+    </div>
+    <div style="padding-top: 8px;">
+        <Label hierachy="heading3">Vue version:</Label>
+        <Label hierachy="paragraph">{{ vue }}</Label>
+    </div>
+    <div style="padding-top: 8px;">
+        <Label hierachy="heading3">Electron version:</Label>
+        <Label hierachy="paragraph">{{ electron }}</Label>
+    </div>
+    <div style="padding-top: 8px;">
+        <Label hierachy="heading3">Node version:</Label>
+        <Label hierachy="paragraph">{{ node }}</Label>
+    </div>
+    <div style="padding-top: 8px;">
+        <Label hierachy="heading3">Platform:</Label>
+        <Label hierachy="paragraph">{{ platform }}</Label>
     </div>
   </div>
 </template>
 
 <script>
+  import Label from './Label'
   export default {
+    name: 'system-information',
+    components: { Label },
     data () {
       return {
         electron: process.versions.electron,
@@ -46,28 +47,4 @@
 </script>
 
 <style scoped>
-  .title {
-    color: #888;
-    font-size: 18px;
-    font-weight: initial;
-    letter-spacing: .25px;
-    margin-top: 10px;
-  }
-
-  .items { margin-top: 8px; }
-
-  .item {
-    display: flex;
-    margin-bottom: 6px;
-  }
-
-  .item .name {
-    color: #6a6a6a;
-    margin-right: 6px;
-  }
-
-  .item .value {
-    color: #35495e;
-    font-weight: bold;
-  }
 </style>

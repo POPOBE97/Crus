@@ -1,18 +1,17 @@
 <template>
-  <div id="wrapper">
-    <StatusBar></StatusBar>
-    <main>
+  <main style="padding: 8px;">
+    <div>
+      <p class="text title">
+        Test Page
+      </p>
+      <system-information></system-information>
+    </div>
+    <div style="padding-top: 8px;">
       <router-link to="/">
-        <v-btn small text>Back</v-btn>
+        <v-btn small text outlined>Back</v-btn>
       </router-link>
-      <div>
-        <p class="text title">
-          Test Page
-        </p>
-        <system-information></system-information>
-      </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
