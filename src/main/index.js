@@ -25,8 +25,9 @@ function createWindow () {
     width: width > 800 ? 800 : width,
     height: height > 600 ? 600 : height,
     useContentSize: true,
+    frame: process.platform === 'darwin',
     webPreferences: {
-      devTools: false
+      devTools: process.platform === 'darwin'
     }
   })
 

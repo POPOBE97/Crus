@@ -13,20 +13,7 @@
 
   export default {
     name: 'root-page',
-    components: {StatusBar, Label},
-    mounted: function () {
-      const keyevents = require('key-events') // Also at window.keyevents.
-      var keys = keyevents()
-      keys.on('keyup', function (key, event) {
-        console.log(key) // A vkey value based on the key pressed.
-        console.log(event) // The original event received.
-      })
-    },
-    methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
-      }
-    }
+    components: { StatusBar, Label }
   }
 </script>
 
