@@ -4,10 +4,7 @@ import axios from 'axios'
 import App from './App'
 import router from './router'
 
-import Vuetify from 'vuetify'
-import 'Vuetify/dist/vuetify.min.css' // 引入Vuetify的css文件
-
-Vue.use(Vuetify)
+import vuetify from '../plugins/vuetify'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
@@ -17,5 +14,6 @@ Vue.config.productionTip = false
 new Vue({
   components: { App },
   router,
+  vuetify,
   template: '<App/>'
 }).$mount('#app')
