@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, screen } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -19,10 +19,15 @@ function createWindow () {
   /**
    * Initial window options
    */
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+
   mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
-    width: 1000
+    width: width > 800 ? width : 800,
+    height: height > 600 ? height : 600,
+    // useContentSize: true, 
+    webPreferences: {
+      devTools: false
+    }
   })
 
   mainWindow.loadURL(winURL)
