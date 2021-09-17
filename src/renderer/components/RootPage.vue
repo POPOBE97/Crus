@@ -1,8 +1,8 @@
 <template>
   <div>
     <StatusBar></StatusBar>
-    <v-slide-x-reverse-transition :hide-on-leave="true">
-      <router-view></router-view>
+    <v-slide-x-reverse-transition :leave-absolute="true">
+      <router-view style="background-color: white;"></router-view>
     </v-slide-x-reverse-transition>
   </div>
 </template>
