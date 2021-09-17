@@ -22,8 +22,8 @@ function createWindow () {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
 
   mainWindow = new BrowserWindow({
-    width: width > 800 ? width : 800,
-    height: height > 600 ? height : 600,
+    width: width > 800 ? 800 : width,
+    height: height > 600 ? 600 : height,
     useContentSize: true,
     webPreferences: {
       devTools: false
