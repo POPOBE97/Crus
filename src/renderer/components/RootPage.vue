@@ -31,6 +31,6 @@
 
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import "../styles/typologies.scss";
 </style>
