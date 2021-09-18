@@ -1,5 +1,5 @@
 <template>
-  <v-system-bar>
+  <v-system-bar :fixed="true">
     <Label hierachy="paragraph">Ruiyao</Label>
     <v-spacer> </v-spacer>
     <Label hierachy="paragraph">{{ dateString }}</Label>

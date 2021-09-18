@@ -52,6 +52,11 @@ app.on('activate', () => {
   }
 })
 
+const {ipcMain} = require('electron')
+ipcMain.on('exit', (evt, arg) => {
+  app.quit()
+})
+
 /**
  * Auto Updater
  *

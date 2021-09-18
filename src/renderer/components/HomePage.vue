@@ -1,25 +1,31 @@
 <template>
     <main style="padding: 8px;">
-      <div>
-        <Label hierachy="title">Welcome to my first Electron App</Label>
-      </div>
-      <div style="padding-top: 8px;">
-        <router-link to="/test">
-          <v-btn small text outlined><Label hierachy="footnote">See more information</Label></v-btn>
-        </router-link>
-      </div>
+      <Label hierachy="title">Welcome to my first Electron App</Label>
     </main>
 </template>
 
 <script>
   import Label from './Label'
+  import KeyboardResponder from './KeyboardResponder'
+  const {ipcRenderer} = require('electron')
 
   export default {
     name: 'home-page',
     components: {Label},
+    extends: KeyboardResponder,
     methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
+      keyup (key, event) {
+        switch (key) {
+          case 'X':
+            console.log('Test:', 'pressed "X"')
+            this.$router.push({ path: '/test' })
+            break
+          case '<escape>':
+            ipcRenderer.send('exit')
+            break
+          default:
+            break
+        }
       }
     }
   }
