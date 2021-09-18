@@ -10,13 +10,13 @@ export default new Router({
       name: 'root-page',
       component: require('@/components/RootPage').default,
       children: [
+        // {
+        //   path: '/',
+        //   name: 'home-page',
+        //   component: require('@/components/HomePage').default
+        // },
         {
           path: '/',
-          name: 'home-page',
-          component: require('@/components/HomePage').default
-        },
-        {
-          path: '/test',
           name: 'test-page',
           component: require('@/components/TestPage').default
         }

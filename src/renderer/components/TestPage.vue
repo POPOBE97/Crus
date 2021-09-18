@@ -5,7 +5,10 @@
         Test Page
       </p>
       <system-information></system-information>
-      <p>{{ debugMessage }}</p>
+      <div style="padding-top: 8px;">
+        <Label hierachy="heading3">Key stroke:</Label>
+        <Label hierachy="paragraph">{{ debugMessage }}</Label>
+      </div>
     </div>
     <div style="padding-top: 8px;">
       <router-link to="/">
@@ -33,10 +36,11 @@
       }
     },
     mounted: function () {
+      const self = this
       const keyevents = require('key-events')
       var keys = keyevents()
       keys.on('keyup', function (key, event) {
-        this.debugMessage = key
+        self.debugMessage = key
       })
     }
   }
