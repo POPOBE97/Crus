@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import App from './App'
 import router from './router'
+import store from './store'
 
 import vuetify from '../plugins/vuetify'
 
@@ -13,6 +14,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   components: { App },
+  store,
   router,
   vuetify,
   template: '<App/>'

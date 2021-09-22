@@ -11,11 +11,14 @@
 <script>
   import StatusBar from './StatusBar'
   import Label from './Label'
-  import ActionBar from './ActionBar.vue'
+  import ActionBar from './ActionBar'
 
   export default {
     name: 'root-page',
-    components: { StatusBar, Label, ActionBar }
+    components: { StatusBar, Label, ActionBar },
+    mounted: function () {
+  
+    }
   }
 </script>
 
