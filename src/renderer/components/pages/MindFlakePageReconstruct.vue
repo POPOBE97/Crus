@@ -77,12 +77,12 @@
         </v-list-item-group>
       </v-list>
       <div style="padding: 8px; flex: auto;" class="lightBordered">
-        <battery-level-data-view key="battery-level" v-if="showBatteryLevelDataView" style="height: 100%;" :items="receavingBuffer"></battery-level-data-view>
-        <string-data-view key="manufacturer-name-string" v-if="showManufacturerNameDataView" style="height: 100%;" :items="receavingBuffer"></string-data-view>
-        <string-data-view key="model-number-string" v-if="showModelNumber" style="height: 100%;" :items="receavingBuffer"></string-data-view>
-        <heart-rate-measurement-data-view key="heart-rate-measurement" v-if="showHeartRateMeasurementDataView" style="height: 100%;" :items="receavingBuffer"></heart-rate-measurement-data-view>
-        <physical-activity-measurement-data-view key="physical-activity-measurement" v-if="showPhysicalActivityMeasurementDataView" style="height: 100%;" :items="receavingBuffer"></physical-activity-measurement-data-view>
-        <temperature-measurement-data-view key="temperature-measurement" v-if="showTemperatureMeasurementDataView" style="height: 100%;" :items="receavingBuffer"></temperature-measurement-data-view>
+        <battery-level-data-view key="battery-level" v-if="showBatteryLevelDataView" style="height: 100%;" :buffer="receavingBuffer"></battery-level-data-view>
+        <string-data-view key="manufacturer-name-string" v-if="showManufacturerNameDataView" style="height: 100%;" :buffer="receavingBuffer"></string-data-view>
+        <string-data-view key="model-number-string" v-if="showModelNumber" style="height: 100%;" :buffer="receavingBuffer"></string-data-view>
+        <heart-rate-measurement-data-view key="heart-rate-measurement" v-if="showHeartRateMeasurementDataView" style="height: 100%;" :buffer="receavingBuffer"></heart-rate-measurement-data-view>
+        <physical-activity-measurement-data-view key="physical-activity-measurement" v-if="showPhysicalActivityMeasurementDataView" style="height: 100%;" :buffer="receavingBuffer"></physical-activity-measurement-data-view>
+        <temperature-measurement-data-view key="temperature-measurement" v-if="showTemperatureMeasurementDataView" style="width: 100%; height: 100%;" :buffer="receavingBuffer"></temperature-measurement-data-view>
       </div>
     </div>
 
@@ -214,7 +214,8 @@
     },
     methods: {
       dataRecieved (buffer, isNotification) {
-        this.receavingBuffer.push(buffer)
+        // this.receavingBuffer.push(buffer)
+        this.receavingBuffer = buffer
       },
       beforeRouteLeaving () {
         // this is not the native api, it is mannually called

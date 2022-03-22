@@ -31,7 +31,8 @@
         renderer: renderer,
         light: light,
         loader: loader,
-        canvas: null
+        canvas: null,
+        glb: null
       }
     },
     created () {
@@ -40,12 +41,13 @@
       this.scene.add(this.light)
       this.renderer.setClearColor(0x000000, 0.1)
       this.light.position.set(0, 0, 0)
-      this.camera.position.set(-180, 70, 80)
+      this.camera.position.set(-270, 100, 100)
       this.camera.rotation.set(THREE.Math.degToRad(-40), THREE.Math.degToRad(-45), THREE.Math.degToRad(-30))
 
       this.loader.load('/static/Pulse Reader Outlined.glb', (glb) => {
         this.scene.add(glb.scene)
         glb.scene.position = new THREE.Vector3(-100, 30, 8)
+        this.glb = glb
       }, undefined, (error) => {
         console.log(error)
       })

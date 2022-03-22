@@ -1,6 +1,6 @@
 <template>
   <main>
-    <scrolling-text-data-view v-if="showTextView" :items="formatedItems"></scrolling-text-data-view>
+    <scrolling-text-data-view v-if="showTextView" :items="items"></scrolling-text-data-view>
     <line-chart-view v-if="showLineChartView"></line-chart-view>
   </main>
 </template>
@@ -11,16 +11,23 @@ import ScrollingTextDataView from '../../sections/ScrollingTextDataView'
 
 export default {
   components: { ScrollingTextDataView, LineChartView },
-  props: ['items'],
+  props: ['buffer'],
   watch: {
-    'items.length': function (newVal, oldVal) {
-      this.formatAndUpdateItems(oldVal, newVal, this.items)
+    buffer: function (newVal, oldVal) {
+      const r = this.formatItem(newVal)
+      const t = this.getTimestamp()
+      this.items.push({
+        id: t,
+        left: t,
+        right: `${r.heartRate} ${r.rrInterval}`,
+        data: r
+      })
     }
   },
   data () {
     return {
       mode: 'text', // ['text', 'lineChart']
-      formatedItems: []
+      items: []
     }
   },
   computed: {
@@ -44,22 +51,9 @@ export default {
         heartRate: v.getUint32(4, true),
         rrInterval: v.getUint32(8, true)
       }
-    },
-    formatAndUpdateItems (s, l, bufferArray) {
-      for (let i = s; i < s + l; i++) {
-        const r = this.formatItem(bufferArray[i])
-        const s = `${r.heartRate} ${r.rrInterval}`
-        this.formatedItems.push({
-          id: this.formatedItems.length,
-          left: this.getTimestamp(),
-          right: s,
-          data: r
-        })
-      }
     }
   },
   mounted () {
-    this.formatAndUpdateItems(0, this.items.length, this.items)
   }
 }
 </script>

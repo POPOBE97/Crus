@@ -1,26 +1,50 @@
 <template>
   <main>
-    <scrolling-text-data-view v-if="showTextView" :items="formatedItems"></scrolling-text-data-view>
+    <scrolling-text-data-view v-if="showTextView" :items="items"></scrolling-text-data-view>
     <line-chart-view v-if="showLineChartView"></line-chart-view>
+    <three-render-view v-if="showRenderView"
+      :filePath="renderParameters.filePath"
+      :rotation="renderParameters.rotation"
+      :position="renderParameters.position"
+      style="height: 100%;">
+    </three-render-view>
+
   </main>
 </template>
 
 <script>
 import LineChartView from '../../sections/LineChartView'
 import ScrollingTextDataView from '../../sections/ScrollingTextDataView'
+import ThreeRenderView from '../../sections/ThreeRenderView'
 
 export default {
-  components: { ScrollingTextDataView, LineChartView },
-  props: ['items'],
+  components: { ScrollingTextDataView, LineChartView, ThreeRenderView },
+  props: ['buffer'],
   watch: {
-    'items.length': function (newVal, oldVal) {
-      this.formatAndUpdateItems(oldVal, newVal, this.items)
+    buffer: function (newVal, oldVal) {
+      const r = this.formatItem(newVal)
+      const t = this.getTimestamp()
+      this.items.push({
+        id: t,
+        left: t,
+        right: `${r.pitch.toFixed(2)} ${r.roll.toFixed(2)}`,
+        data: r
+      })
+      if (this.items.length > 100) { this.items.shift() }
+      this.renderParameters.rotation.x = r.pitch / 180 * Math.PI
+      this.renderParameters.rotation.z = r.roll / 180 * Math.PI
+      this.renderParameters.rotation.y = Math.PI
     }
   },
   data () {
     return {
-      mode: 'text', // ['text', 'lineChart']
-      formatedItems: []
+      mode: 'render', // ['text', 'lineChart']
+      items: [],
+      renderParameters: {
+        filePath: '/static/Pulse Reader Outlined.glb',
+        rotation: {x: 0, y: 0, z: 0},
+        position: {x: 0, y: 0, z: 0}
+      }
     }
   },
   computed: {
@@ -29,6 +53,9 @@ export default {
     },
     showLineChartView: function () {
       return this.mode === 'lineChart'
+    },
+    showRenderView: function () {
+      return this.mode === 'render'
     }
   },
   methods: {
@@ -45,23 +72,9 @@ export default {
         d.push(r)
       }
       return {pitch: d[0], roll: d[1]}
-    },
-    formatAndUpdateItems (s, l, bufferArray) {
-      for (let i = s; i < s + l; i++) {
-        const r = this.formatItem(bufferArray[i])
-        if (!r) continue
-        const s = `${r.pitch.toFixed(2)} ${r.roll.toFixed(2)}`
-        this.formatedItems.push({
-          id: this.formatedItems.length,
-          left: this.getTimestamp(),
-          right: s,
-          data: r
-        })
-      }
     }
   },
   mounted () {
-    this.formatAndUpdateItems(0, this.items.length, this.items)
   }
 }
 </script>
