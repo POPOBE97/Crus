@@ -2,12 +2,21 @@
 
 import { app, BrowserWindow, screen } from 'electron'
 
+process.env['ELECTRON DISABLE SECURITY WARNINGS'] = 'true'
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+}
+
+if (process.platform === 'linux') {
+  app.commandLine.appendSwitch('enable-experimental-web-platform-features', true)
+} else {
+  app.commandLine.appendSwitch('enable-web-bluetooth', true)
+  app.commandLine.appendSwitch('enable-experimental-web-platform-features', true)
 }
 
 let mainWindow
@@ -27,15 +36,41 @@ function createWindow () {
     useContentSize: true,
     frame: process.platform === 'darwin',
     webPreferences: {
-      devTools: process.platform === 'darwin'
+      devTools: process.platform === 'darwin',
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+      experimentalFeatures: true
     }
   })
 
-  mainWindow.loadURL(winURL)
+  // mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, handler) => {
+  //   event.preventDefault()
+  //   console.log(deviceList)
+  //   // if (deviceList && deviceList.length > 0) {
+  //   //   for (let i = 0; i < deviceList.length; i++) {
+  //   //     const device = deviceList[i]
+  //   //     handler(device.deviceId)
+  //   //   }
+  //   // } else {
+  //   //   handler('')
+  //   // }
+  // })
+
+  // mainWindow.webContents.session.on('select-serial-port', (event, portList, webContents, handler) => {
+  //   event.preventDefault()
+  //   if (portList && portList.length > 0) {
+  //     handler(portList[1].portId)
+  //   } else {
+  //     handler('')
+  //   }
+  // })
 
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  mainWindow.loadURL(winURL)
 }
 
 app.on('ready', createWindow)
